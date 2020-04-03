@@ -1,0 +1,16 @@
+exec < /dev/tty
+
+while read -p "Nice commit! Want to do a 60 second meditation? (Y/n) " yn; do
+    case $yn in
+        [Yy] ) echo "Great. Over the next 60 seconds, breathe in and out deeply. Go from your head to your toes as you tense and release each body part. Keep your feet planted firmly on the ground."; break;;
+        [Nn] ) echo "Okay, we'll ask again after your next commit"; exit 1;;
+        * ) echo "Please answer y (yes) or n (no):" && continue;
+    esac
+done
+for (( i=60; i>0; i--)); do
+  sleep 1 &
+  printf "  $i \r"
+  wait
+done
+echo "Hope you found that relaxing. Want more? Go to jointherest.com/gitsomerest"
+exec <&-
